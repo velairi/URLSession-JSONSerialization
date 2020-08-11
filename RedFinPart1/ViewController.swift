@@ -12,9 +12,23 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        let url = URL(string: "https://data.sfgov.org/resource/yitu-d5am.json")!
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error == nil {
+                guard let data = data else { return }
+                print("Data", data)
+                print("Response", response)
+                do {
+                let object = try JSONSerialization.jsonObject(with: data, options: [])
+                    print("Object", object)
+                } catch {
+
+                }
+            } else {
+                print("Error", error)
+            }
+        }
+        task.resume()
     }
-
-
 }
-
